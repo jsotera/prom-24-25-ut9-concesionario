@@ -22,7 +22,7 @@
                         <#if modeloSeleccionado??>
                             <#assign opcionSeleccionada="">
                         </#if>
-                        <option ${opcionSeleccionada}>Selecciona un modelo</option>
+                        <option ${opcionSeleccionada} value="">Selecciona un modelo</option>
                         <#if modelitos??>
                             <#list modelitos as modelito>
                                 <#if modeloSeleccionado?? && modeloSeleccionado==modelito>

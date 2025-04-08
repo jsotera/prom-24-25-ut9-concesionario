@@ -16,11 +16,9 @@ public class MainCoches {
         }).start(7000);
 
         List<Coche> coches = new ArrayList<>();
-        coches.add(new Coche("/img/coche1.jpg", "20,000€", "Ford", "Rojo"));
-        coches.add(new Coche("/img/coche2.jpg", "25,500€", "Honda", "Negro"));
-        coches.add(new Coche("/img/coche3.jpg", "30,000€", "Ford", "Azul"));
-        coches.add(new Coche("/img/coche4.jpg", "18,000€", "Renault", "Blanco"));
-        coches.add(new Coche("/img/coche5.jpg", "22,750€", "Ford", "Gris"));
+
+        inicializarConcesionario(coches);
+
 
         Set<String> modelosUnicos = new HashSet<>();
         for (Coche coche : coches) {
@@ -44,11 +42,42 @@ public class MainCoches {
             String modeloInput = ctx.formParam("modeloInput");
             System.out.println(modeloInput);
 
+            List<Coche> cochesFiltrados = new ArrayList<>(coches);
+
+            filtrarModeloCoches(modeloInput, cochesFiltrados);
+
             model.put("modelitos", modelos);
             model.put("modeloSeleccionado", modeloInput);
-            model.put("coches", coches);
+            model.put("coches", cochesFiltrados);
             ctx.render("coches/coches.ftl", model);
         });
+
+    }
+
+    private static void inicializarConcesionario(List<Coche> coches) {
+
+        coches.add(new Coche("/img/coche1.jpg", "20,000€", "Ford", "Rojo"));
+        coches.add(new Coche("/img/coche2.jpg", "25,500€", "Honda", "Negro"));
+        coches.add(new Coche("/img/coche3.jpg", "30,000€", "Ford", "Azul"));
+        coches.add(new Coche("/img/coche4.jpg", "18,000€", "Renault", "Blanco"));
+        coches.add(new Coche("/img/coche5.jpg", "22,750€", "Ford", "Gris"));
+
+    }
+
+    private static void filtrarModeloCoches(String modeloInput, List<Coche> coches) {
+
+        if(modeloInput==null || modeloInput.isEmpty()){
+            return;
+        }
+
+        Iterator<Coche> iterador = coches.iterator();
+        while(iterador.hasNext()){
+            Coche coche = iterador.next();
+            if(!coche.getModelo().equals(modeloInput)){
+                iterador.remove();
+            }
+        }
+
 
     }
 
