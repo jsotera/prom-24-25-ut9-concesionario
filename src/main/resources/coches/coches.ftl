@@ -12,29 +12,68 @@
 
         <div class="container mt-4">
             <form action="/coches" method="post">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="modeloInput" class="form-label">Modelo:</label>
 
-                <div class="mb-3">
-                    <label for="modeloInput" class="form-label">Modelo:</label>
+                        <select class="form-select" aria-label="Default select example" id="modeloInput" name="modeloInput" aria-describedby="modeloInputHelp">
 
-                    <select class="form-select" aria-label="Default select example" id="modeloInput" name="modeloInput" aria-describedby="modeloInputHelp">
+                            <#assign opcionSeleccionada="selected">
+                            <#if modeloSeleccionado??>
+                                <#assign opcionSeleccionada="">
+                            </#if>
+                            <option ${opcionSeleccionada} value="">Selecciona un modelo</option>
+                            <#if modelitos??>
+                                <#list modelitos as modelito>
+                                    <#if modeloSeleccionado?? && modeloSeleccionado==modelito>
+                                        <#assign opcionSeleccionada="selected">
+                                    <#else>
+                                        <#assign opcionSeleccionada="">
+                                    </#if>
+                                    <option ${opcionSeleccionada} value="${modelito}">${modelito}</option>
+                                </#list>
+                            </#if>
+                        </select>
+                        <div id="modeloInputHelp" class="form-text">Selecciona un modelo para filtra.</div>
+                    </div>
 
-                        <#assign opcionSeleccionada="selected">
-                        <#if modeloSeleccionado??>
-                            <#assign opcionSeleccionada="">
-                        </#if>
-                        <option ${opcionSeleccionada} value="">Selecciona un modelo</option>
-                        <#if modelitos??>
-                            <#list modelitos as modelito>
-                                <#if modeloSeleccionado?? && modeloSeleccionado==modelito>
-                                    <#assign opcionSeleccionada="selected">
-                                <#else>
-                                    <#assign opcionSeleccionada="">
-                                </#if>
-                                <option ${opcionSeleccionada} value="${modelito}">${modelito}</option>
-                            </#list>
-                        </#if>
-                    </select>
-                    <div id="modeloInputHelp" class="form-text">Selecciona un modelo para filtra.</div>
+                    <div class="col-3">
+                        <label for="colorInput" class="form-label">Color:</label>
+
+                        <select class="form-select" aria-label="Default select color" id="colorInput" name="colorInput" aria-describedby="colorInputHelp">
+
+                            <#assign opcionSeleccionada="selected">
+                            <#if colorSeleccionado??>
+                                <#assign opcionSeleccionada="">
+                            </#if>
+                            <option ${opcionSeleccionada} value="">Selecciona un color</option>
+                            <#if colorcitos??>
+                                <#list colorcitos as color>
+                                    <#if colorSeleccionado?? && colorSeleccionado==color>
+                                        <#assign opcionSeleccionada="selected">
+                                    <#else>
+                                        <#assign opcionSeleccionada="">
+                                    </#if>
+                                    <option ${opcionSeleccionada} value="${color}">${color}</option>
+                                </#list>
+                            </#if>
+                        </select>
+                        <div id="colorInputHelp" class="form-text">Selecciona un color para filtra.</div>
+                    </div>
+
+
+                    <div class="col-3">
+
+                        <label for="colorInput" class="form-label">Precio menor que:</label>
+
+                        <div class="input-group mb-3" aria-describedby="precioInputHelp">
+                          <span class="input-group-text">$</span>
+                          <input type="text" class="form-control" name="precioInput" aria-label="Amount (to the nearest dollar)">
+                        </div>
+
+                        <div id="precioInputHelp" class="form-text">Selecciona un precio para filtra.</div>
+                    </div>
+
                 </div>
 
                 <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -55,6 +94,8 @@
                             </div>
                         </div>
                     </div>
+                <#else>
+                    <strong>No hay coches para mostrar con el filtrado seleccionado.</strong>
                 </#list>
             </div>
         </div>
